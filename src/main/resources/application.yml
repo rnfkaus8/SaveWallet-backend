@@ -1,14 +1,5 @@
 spring:
-  datasource:
-    url: jdbc:mariadb://${DB_HOST}:${DB_PORT}/${DB_NAME}?characterEncoding=UTF-8&serverTimezone=UTC
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-    driver-class-name: org.mariadb.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: false
-    properties:
-      hibernate:
-        format_sql: true  # (3) SQL pretty print
-        dialect: org.hibernate.dialect.MariaDB103Dialect
+  profiles:
+    active: ${SPRING-PROFILES-ACTIVE}
+  main:
+    allow-bean-definition-overriding: true
