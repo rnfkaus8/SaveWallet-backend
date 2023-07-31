@@ -1,9 +1,6 @@
 package io.cloudtype.Demo.domain;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,6 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class Item {
 
     @Id
