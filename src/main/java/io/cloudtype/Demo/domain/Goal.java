@@ -18,7 +18,7 @@ public class Goal {
 
     private LocalDateTime createdAt;
 
-    private LocalDateTime targetMonth;
+    private String targetMonth;
 
     private int goalPrice;
 
