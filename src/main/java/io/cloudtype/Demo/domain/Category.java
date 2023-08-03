@@ -24,4 +24,9 @@ public class Category {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
+
+
+    public void changeName(String name) {
+        this.name = name;
+    }
 }
