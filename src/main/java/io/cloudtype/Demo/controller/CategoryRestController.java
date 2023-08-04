@@ -37,7 +37,7 @@ public class CategoryRestController {
     public Category update(@RequestBody UpdateCategoryRequest request) {
         Category category = categoryRepository.findById(request.getCategoryId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 카테고리입니다."));
         category.changeName(request.getName());
-        return null;
+        return category;
     }
 
     @DeleteMapping("/category/{id}")
