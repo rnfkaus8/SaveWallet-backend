@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class Item {
+public class Item extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -21,8 +21,11 @@ public class Item {
 
     private int price;
 
-    private LocalDateTime createdAt;
+    private LocalDateTime boughtDate;
 
     @ManyToOne
     private Member member;
+
+
+
 }

@@ -11,15 +11,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class Category {
+public class Category extends BaseEntity{
     @Id
     @GeneratedValue
     private Long id;
 
     private String name;
 
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
     @ManyToOne
     @JoinColumn(name = "member_id")

@@ -11,12 +11,10 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Goal {
+public class Goal extends BaseEntity {
 
     @Id @GeneratedValue
     private Long id;
-
-    private LocalDateTime createdAt;
 
     private String targetMonth;
 

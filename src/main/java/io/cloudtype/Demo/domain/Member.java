@@ -14,12 +14,10 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Member {
+public class Member extends BaseEntity {
 
     @Id @GeneratedValue
     private Long id;
 
     private String name;
-
-    private LocalDateTime createdAt;
 }
