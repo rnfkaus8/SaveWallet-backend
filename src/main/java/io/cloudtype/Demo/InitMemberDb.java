@@ -26,8 +26,8 @@ public class InitMemberDb {
         private final MemberRepository memberRepository;
 
         public void initDb() {
-            memberRepository.save(Member.builder().createdAt(LocalDateTime.now()).id(1L).name("박채윤").build());
-            memberRepository.save(Member.builder().createdAt(LocalDateTime.now()).id(2L).name("박이영").build());
+            memberRepository.save(Member.builder().id(1L).name("박채윤").build());
+            memberRepository.save(Member.builder().id(2L).name("박이영").build());
         }
     }
 }
