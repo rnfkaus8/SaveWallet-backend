@@ -31,13 +31,12 @@ public class MemberRestController {
             throw new IllegalArgumentException("이미 존재하는 회원입니다.");
         }
 
-        LocalDateTime now = LocalDateTime.now();
-        Member member = Member.builder().name(name).createdAt(now).build();
+        Member member = Member.builder().name(name).build();
         memberRepository.save(member);
 
-        categoryRepository.save(Category.builder().name("식비").member(member).createdAt(now).updatedAt(now).build());
-        categoryRepository.save(Category.builder().name("쇼핑").member(member).createdAt(now).updatedAt(now).build());
-        categoryRepository.save(Category.builder().name("자기계발").member(member).createdAt(now).updatedAt(now).build());
+        categoryRepository.save(Category.builder().name("식비").member(member).build());
+        categoryRepository.save(Category.builder().name("쇼핑").member(member).build());
+        categoryRepository.save(Category.builder().name("자기계발").member(member).build());
 
         return member;
     }

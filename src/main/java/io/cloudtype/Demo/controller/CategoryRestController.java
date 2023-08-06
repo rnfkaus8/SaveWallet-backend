@@ -19,8 +19,7 @@ public class CategoryRestController {
     @PostMapping("/category")
     public Category save(@RequestBody SaveCategoryRequest request) {
         Member member = memberRepository.findById(request.getMemberId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
-        LocalDateTime now = LocalDateTime.now();
-        return categoryRepository.save(Category.builder().name(request.getName()).member(member).createdAt(now).updatedAt(now).build());
+        return categoryRepository.save(Category.builder().name(request.getName()).member(member).build());
     }
 
     @GetMapping("/categories/{id}")

@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @ToString
 public class FindItemsRequest {
-    private String startDate;
-    private String endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+    private Long memberId;
 }
