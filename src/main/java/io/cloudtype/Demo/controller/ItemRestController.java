@@ -24,26 +24,32 @@ public class ItemRestController {
     private final MemberRepository memberRepository;
 
     @GetMapping("/items")
-    public List<Item> getItems(@RequestBody FindItemsRequest request) {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public List<Item> getItems(FindItemsRequest request) {
+//        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        log.info("startDate : {}", request.getStartDate());
-        log.info("endDate : {}", request.getEndDate());
-        LocalDateTime startDate = LocalDate.parse(request.getStartDate(), dateTimeFormatter).atStartOfDay();
-        LocalDateTime endDate = LocalDate.parse(request.getEndDate(), dateTimeFormatter).atStartOfDay();
-        log.info("startDate parse : {}", startDate);
-        log.info("endDate parse : {}", endDate);
-        return itemRepository.findByCreatedAtBetween(startDate, endDate);
+//        log.info("startDate : {}", request.getStartDate());
+//        log.info("endDate : {}", request.getEndDate());
+//        LocalDateTime startDate = LocalDate.parse(request.getStartDate(), dateTimeFormatter).atStartOfDay();
+//        LocalDateTime endDate = LocalDate.parse(request.getEndDate(), dateTimeFormatter).atStartOfDay();
+//        log.info("startDate parse : {}", startDate);
+//        log.info("endDate parse : {}", endDate);
+        return itemRepository.findItems(request.getStartDate(), request.getEndDate(), request.getMemberId());
     }
 
     @PostMapping("/item")
     public Item saveItem(@RequestBody SaveItemRequest request) {
         return itemRepository.save(Item.builder()
-                .createdAt(LocalDateTime.now())
                 .member(memberRepository.findById(request.getMemberId()).orElseThrow(() -> new IllegalArgumentException("잘못된 아이디입니다")))
                 .name(request.getName())
                 .price(request.getPrice())
+                .boughtDate(request.getBoughtDate())
                 .build());
+    }
+
+    @DeleteMapping("/item/{id}")
+    public String delete(@PathVariable Long id) {
+        itemRepository.deleteById(id);
+        return "success";
     }
 
 }
