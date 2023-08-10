@@ -25,14 +25,6 @@ public class ItemRestController {
 
     @GetMapping("/items")
     public List<Item> getItems(FindItemsRequest request) {
-//        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-//        log.info("startDate : {}", request.getStartDate());
-//        log.info("endDate : {}", request.getEndDate());
-//        LocalDateTime startDate = LocalDate.parse(request.getStartDate(), dateTimeFormatter).atStartOfDay();
-//        LocalDateTime endDate = LocalDate.parse(request.getEndDate(), dateTimeFormatter).atStartOfDay();
-//        log.info("startDate parse : {}", startDate);
-//        log.info("endDate parse : {}", endDate);
         return itemRepository.findItems(request.getStartDate(), request.getEndDate(), request.getMemberId());
     }
 
