@@ -1,4 +1,4 @@
-package io.cloudtype.Demo.controller;
+package io.cloudtype.Demo.controller.request;
 
 import lombok.Data;
 import lombok.ToString;

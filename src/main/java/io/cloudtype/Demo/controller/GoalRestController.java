@@ -1,5 +1,7 @@
 package io.cloudtype.Demo.controller;
 
+import io.cloudtype.Demo.controller.request.FindGoalRequest;
+import io.cloudtype.Demo.controller.request.SaveGoalRequest;
 import io.cloudtype.Demo.domain.Goal;
 import io.cloudtype.Demo.domain.Member;
 import io.cloudtype.Demo.repository.GoalRepository;

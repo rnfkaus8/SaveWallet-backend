@@ -1,13 +1,11 @@
-package io.cloudtype.Demo.controller;
+package io.cloudtype.Demo.controller.request;
 
 import lombok.Data;
 import lombok.ToString;
 
 @Data
 @ToString
-public class SaveGoalRequest {
-
+public class FindGoalRequest {
     private String targetMonth;
     private Long memberId;
-    private int goalPrice;
 }

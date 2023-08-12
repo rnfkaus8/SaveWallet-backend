@@ -1,5 +1,7 @@
 package io.cloudtype.Demo.controller;
 
+import io.cloudtype.Demo.controller.request.SaveCategoryRequest;
+import io.cloudtype.Demo.controller.request.UpdateCategoryRequest;
 import io.cloudtype.Demo.domain.Category;
 import io.cloudtype.Demo.domain.Member;
 import io.cloudtype.Demo.repository.CategoryRepository;
@@ -7,7 +9,6 @@ import io.cloudtype.Demo.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
