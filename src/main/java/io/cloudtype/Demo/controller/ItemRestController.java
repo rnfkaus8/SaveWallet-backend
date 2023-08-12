@@ -1,18 +1,15 @@
 package io.cloudtype.Demo.controller;
 
+import io.cloudtype.Demo.controller.request.FindItemsRequest;
+import io.cloudtype.Demo.controller.request.SaveItemRequest;
+import io.cloudtype.Demo.controller.request.UpdateItemRequest;
 import io.cloudtype.Demo.domain.Item;
-import io.cloudtype.Demo.domain.Member;
 import io.cloudtype.Demo.repository.ItemRepository;
 import io.cloudtype.Demo.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.jni.Local;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -36,6 +33,13 @@ public class ItemRestController {
                 .price(request.getPrice())
                 .boughtDate(request.getBoughtDate())
                 .build());
+    }
+
+    @PatchMapping("/item")
+    public Item updateItem(@RequestBody UpdateItemRequest request) {
+        Item findItem = itemRepository.findById(request.getId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 기록입니다."));
+        findItem.updateItem(request.getName(), request.getPrice(), request.getBoughtDate());
+        return findItem;
     }
 
     @DeleteMapping("/item/{id}")
