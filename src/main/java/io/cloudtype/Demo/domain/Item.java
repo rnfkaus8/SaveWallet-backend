@@ -26,6 +26,12 @@ public class Item extends BaseEntity {
     @ManyToOne
     private Member member;
 
+    public void updateItem(String name, int price, LocalDateTime boughtDate) {
+        this.name = name;
+        this.price = price;
+        this.boughtDate = boughtDate;
+    }
+
 
 
 }
