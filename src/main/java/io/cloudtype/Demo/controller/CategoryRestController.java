@@ -24,7 +24,7 @@ public class CategoryRestController {
     }
 
     @GetMapping("/categories/{id}")
-    public List<Category> findAllById(@PathVariable Long id) {
+    public List<Category> findAllByMemberId(@PathVariable Long id) {
         return categoryRepository.findByMemberId(id);
     }
 
@@ -45,5 +45,4 @@ public class CategoryRestController {
         categoryRepository.deleteById(id);
         return "success";
     }
-
 }
