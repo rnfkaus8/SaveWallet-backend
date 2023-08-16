@@ -11,6 +11,6 @@ import java.util.List;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
-    @Query("select i from Item i where i.createdAt between :startDate and :endDate and i.member.id = :memberId")
+    @Query("select i from Item i where i.boughtDate between :startDate and :endDate and i.member.id = :memberId")
     List<Item> findItems(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate, @Param("memberId") Long memberId);
 }
