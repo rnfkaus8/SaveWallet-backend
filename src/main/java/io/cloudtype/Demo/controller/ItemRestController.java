@@ -6,6 +6,7 @@ import io.cloudtype.Demo.controller.request.UpdateItemRequest;
 import io.cloudtype.Demo.domain.Item;
 import io.cloudtype.Demo.repository.ItemRepository;
 import io.cloudtype.Demo.repository.MemberRepository;
+import io.cloudtype.Demo.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,8 @@ public class ItemRestController {
 
     private final ItemRepository itemRepository;
     private final MemberRepository memberRepository;
+
+    private final ItemService itemService;
 
     @GetMapping("/items")
     public List<Item> getItems(FindItemsRequest request) {
@@ -36,10 +39,9 @@ public class ItemRestController {
     }
 
     @PatchMapping("/item")
-    public Item updateItem(@RequestBody UpdateItemRequest request) {
-        Item findItem = itemRepository.findById(request.getId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 기록입니다."));
-        findItem.updateItem(request.getName(), request.getPrice(), request.getBoughtDate());
-        return findItem;
+    public String updateItem(@RequestBody UpdateItemRequest request) {
+        itemService.update(request);
+        return "success";
     }
 
     @DeleteMapping("/item/{id}")
