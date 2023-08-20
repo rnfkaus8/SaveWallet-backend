@@ -2,10 +2,12 @@ package io.cloudtype.Demo.controller;
 
 import io.cloudtype.Demo.controller.request.FindGoalRequest;
 import io.cloudtype.Demo.controller.request.SaveGoalRequest;
+import io.cloudtype.Demo.controller.request.UpdateGoalRequest;
 import io.cloudtype.Demo.domain.Goal;
 import io.cloudtype.Demo.domain.Member;
 import io.cloudtype.Demo.repository.GoalRepository;
 import io.cloudtype.Demo.repository.MemberRepository;
+import io.cloudtype.Demo.service.GoalService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,13 @@ import java.util.Optional;
 public class GoalRestController {
     private final GoalRepository goalRepository;
     private final MemberRepository memberRepository;
+    private final GoalService goalService;
+
+    @PatchMapping("/goal")
+    public String update(@RequestBody UpdateGoalRequest request) {
+        goalService.update(request);
+        return "success";
+    }
 
     @PutMapping("/goal")
     public Goal saveNotExistGoal(@RequestBody SaveGoalRequest request) {

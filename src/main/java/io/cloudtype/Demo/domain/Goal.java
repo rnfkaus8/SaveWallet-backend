@@ -22,4 +22,8 @@ public class Goal extends BaseEntity {
 
     @ManyToOne
     private Member member;
+
+    public void updatePrice(int price) {
+        this.goalPrice = price;
+    }
 }
