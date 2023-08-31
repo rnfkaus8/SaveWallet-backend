@@ -24,7 +24,12 @@ public class Item extends BaseEntity {
     private LocalDateTime boughtDate;
 
     @ManyToOne
+    @JoinColumn(name = "member_id")
     private Member member;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     public void updateItem(String name, int price, LocalDateTime boughtDate) {
         this.name = name;
