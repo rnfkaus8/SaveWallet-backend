@@ -34,9 +34,12 @@ public class MemberRestController {
         Member member = Member.builder().name(name).build();
         memberRepository.save(member);
 
-        categoryRepository.save(Category.builder().name("식비").member(member).build());
-        categoryRepository.save(Category.builder().name("쇼핑").member(member).build());
-        categoryRepository.save(Category.builder().name("자기계발").member(member).build());
+        categoryRepository.save(Category.builder().member(member).name("식비").build());
+        categoryRepository.save(Category.builder().member(member).name("쇼핑").build());
+        categoryRepository.save(Category.builder().member(member).name("문화").build());
+        categoryRepository.save(Category.builder().member(member).name("취미/여가").build());
+        categoryRepository.save(Category.builder().member(member).name("교통").build());
+        categoryRepository.save(Category.builder().member(member).name("그 외").build());
 
         return member;
     }
