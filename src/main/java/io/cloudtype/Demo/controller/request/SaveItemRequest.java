@@ -12,4 +12,5 @@ public class SaveItemRequest {
     private int price;
     private Long memberId;
     private LocalDateTime boughtDate;
+    private Long categoryId;
 }
