@@ -19,8 +19,6 @@ import java.util.List;
 public class ItemRestController {
 
     private final ItemRepository itemRepository;
-    private final MemberRepository memberRepository;
-
     private final ItemService itemService;
 
     @GetMapping("/items")
@@ -29,13 +27,9 @@ public class ItemRestController {
     }
 
     @PostMapping("/item")
-    public Item saveItem(@RequestBody SaveItemRequest request) {
-        return itemRepository.save(Item.builder()
-                .member(memberRepository.findById(request.getMemberId()).orElseThrow(() -> new IllegalArgumentException("잘못된 아이디입니다")))
-                .name(request.getName())
-                .price(request.getPrice())
-                .boughtDate(request.getBoughtDate())
-                .build());
+    public String saveItem(@RequestBody SaveItemRequest request) {
+        itemService.save(request);
+        return "success";
     }
 
     @PatchMapping("/item")
