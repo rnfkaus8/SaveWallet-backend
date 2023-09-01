@@ -20,7 +20,7 @@ public class Goal extends BaseEntity {
 
     private int goalPrice;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
     public void updatePrice(int price) {
