@@ -2,6 +2,7 @@ package io.cloudtype.Demo.controller;
 
 import io.cloudtype.Demo.controller.request.SaveCategoryRequest;
 import io.cloudtype.Demo.controller.request.UpdateCategoryRequest;
+import io.cloudtype.Demo.controller.response.CategoryResponse;
 import io.cloudtype.Demo.domain.Category;
 import io.cloudtype.Demo.domain.Member;
 import io.cloudtype.Demo.repository.CategoryRepository;
@@ -25,7 +26,8 @@ public class CategoryRestController {
 
     @GetMapping("/categories/{id}")
     public List<Category> findAllByMemberId(@PathVariable Long id) {
-        return categoryRepository.findByMemberId(id);
+        return categoryRepository.findByMemberId(id).stream().map((category -> {return new CategoryResponse(category.getId(), category.getName())
+        }));
     }
 
     @GetMapping("/category/{id}")
