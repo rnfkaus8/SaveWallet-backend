@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,9 +26,10 @@ public class CategoryRestController {
     }
 
     @GetMapping("/categories/{id}")
-    public List<Category> findAllByMemberId(@PathVariable Long id) {
-        return categoryRepository.findByMemberId(id).stream().map((category -> {return new CategoryResponse(category.getId(), category.getName())
-        }));
+    public List<CategoryResponse> findAllByMemberId(@PathVariable Long id) {
+        return categoryRepository.findByMemberId(id).stream().map((category -> {
+            return new CategoryResponse(category.getId(), category.getName());
+        })).collect(Collectors.toList());
     }
 
     @GetMapping("/category/{id}")
