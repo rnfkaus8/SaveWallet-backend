@@ -3,6 +3,8 @@ package io.cloudtype.Demo.controller;
 import io.cloudtype.Demo.controller.request.FindItemsRequest;
 import io.cloudtype.Demo.controller.request.SaveItemRequest;
 import io.cloudtype.Demo.controller.request.UpdateItemRequest;
+import io.cloudtype.Demo.controller.response.ItemResponse;
+import io.cloudtype.Demo.controller.response.TotalPriceByCategoryResponse;
 import io.cloudtype.Demo.domain.Item;
 import io.cloudtype.Demo.repository.ItemRepository;
 import io.cloudtype.Demo.repository.MemberRepository;
@@ -22,8 +24,13 @@ public class ItemRestController {
     private final ItemService itemService;
 
     @GetMapping("/items")
-    public List<Item> getItems(FindItemsRequest request) {
-        return itemRepository.findItems(request.getStartDate(), request.getEndDate(), request.getMemberId());
+    public List<ItemResponse> getItems(FindItemsRequest request) {
+        return itemService.findItems(request);
+    }
+
+    @GetMapping("/items/total-price")
+    public List<TotalPriceByCategoryResponse> getTotalPriceByCategory(FindItemsRequest request) {
+        return itemService.findTotalPriceByCategory(request);
     }
 
     @PostMapping("/item")
