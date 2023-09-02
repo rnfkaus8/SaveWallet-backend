@@ -1,17 +1,27 @@
 package io.cloudtype.Demo.service;
 
+import io.cloudtype.Demo.controller.request.FindItemsRequest;
 import io.cloudtype.Demo.controller.request.SaveItemRequest;
 import io.cloudtype.Demo.controller.request.UpdateItemRequest;
+import io.cloudtype.Demo.controller.response.ItemResponse;
+import io.cloudtype.Demo.controller.response.TotalPriceByCategoryResponse;
 import io.cloudtype.Demo.domain.Category;
 import io.cloudtype.Demo.domain.Item;
 import io.cloudtype.Demo.domain.Member;
 import io.cloudtype.Demo.repository.CategoryRepository;
 import io.cloudtype.Demo.repository.ItemRepository;
+import io.cloudtype.Demo.repository.ItemRepositorySupport;
 import io.cloudtype.Demo.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static io.cloudtype.Demo.domain.QCategory.category;
+import static io.cloudtype.Demo.domain.QItem.item;
 
 @Slf4j
 @Service
@@ -21,6 +31,7 @@ public class ItemService {
     private final ItemRepository itemRepository;
     private final MemberRepository memberRepository;
     private final CategoryRepository categoryRepository;
+    private final ItemRepositorySupport itemRepositorySupport;
 
     @Transactional
     public void update(UpdateItemRequest request) {
@@ -39,5 +50,15 @@ public class ItemService {
                 .price(request.getPrice())
                 .boughtDate(request.getBoughtDate())
                 .build());
+    }
+
+    public List<ItemResponse> findItems(FindItemsRequest request) {
+        return itemRepository.findItems(request.getStartDate(), request.getEndDate(), request.getMemberId()).stream().map((item) -> {
+            return new ItemResponse(item.getId(), item.getName(), item.getPrice(), item.getBoughtDate());}).collect(Collectors.toList());
+    }
+
+    public List<TotalPriceByCategoryResponse> findTotalPriceByCategory(FindItemsRequest request) {
+        return itemRepositorySupport.getCategoryTotalCount(request).stream().map(tuple ->
+                new TotalPriceByCategoryResponse(tuple.get(category.name), tuple.get(item.price.sum()))).collect(Collectors.toList());
     }
 }
