@@ -59,6 +59,6 @@ public class ItemService {
 
     public List<TotalPriceByCategoryResponse> findTotalPriceByCategory(FindItemsRequest request) {
         return itemRepositorySupport.getCategoryTotalCount(request).stream().map(tuple ->
-                new TotalPriceByCategoryResponse(tuple.get(category.name), tuple.get(item.price.sum()))).collect(Collectors.toList());
+                new TotalPriceByCategoryResponse(tuple.get(category.name), tuple.get(category.color), tuple.get(item.price.sum()))).collect(Collectors.toList());
     }
 }

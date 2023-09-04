@@ -7,5 +7,6 @@ import lombok.ToString;
 @ToString
 public class UpdateCategoryRequest {
     private String name;
+    private String color;
     private Long categoryId;
 }

@@ -22,13 +22,13 @@ public class CategoryRestController {
     @PostMapping("/category")
     public Category save(@RequestBody SaveCategoryRequest request) {
         Member member = memberRepository.findById(request.getMemberId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
-        return categoryRepository.save(Category.builder().name(request.getName()).member(member).build());
+        return categoryRepository.save(Category.builder().name(request.getName()).color(request.getColor()).member(member).build());
     }
 
     @GetMapping("/categories/{id}")
     public List<CategoryResponse> findAllByMemberId(@PathVariable Long id) {
         return categoryRepository.findByMemberId(id).stream().map((category -> {
-            return new CategoryResponse(category.getId(), category.getName());
+            return new CategoryResponse(category.getId(), category.getName(), category.getColor());
         })).collect(Collectors.toList());
     }
 

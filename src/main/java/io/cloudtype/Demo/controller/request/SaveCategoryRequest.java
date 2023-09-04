@@ -7,5 +7,6 @@ import lombok.ToString;
 @ToString
 public class SaveCategoryRequest {
     private String name;
+    private String color;
     private Long memberId;
 }

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 
 @Component
 @RequiredArgsConstructor
@@ -33,19 +32,17 @@ public class InitMemberDb {
             Member 박이영 = Member.builder().id(2L).name("박이영").build();
             memberRepository.save(박채윤);
             memberRepository.save(박이영);
-            categoryRepository.save(Category.builder().member(박이영).name("식비").build());
-            categoryRepository.save(Category.builder().member(박이영).name("쇼핑").build());
-            categoryRepository.save(Category.builder().member(박이영).name("문화").build());
-            categoryRepository.save(Category.builder().member(박이영).name("취미/여가").build());
-            categoryRepository.save(Category.builder().member(박이영).name("교통").build());
-            categoryRepository.save(Category.builder().member(박이영).name("그 외").build());
+            categoryRepository.save(Category.builder().member(박이영).name("식비").color("#FF5757").build());
+            categoryRepository.save(Category.builder().member(박이영).name("쇼핑").color("#467AFF").build());
+            categoryRepository.save(Category.builder().member(박이영).name("취미/여가").color("#FFD542").build());
+            categoryRepository.save(Category.builder().member(박이영).name("교통").color("#42D93F").build());
+            categoryRepository.save(Category.builder().member(박이영).name("그 외").color("#8E8565").build());
 
-            categoryRepository.save(Category.builder().member(박채윤).name("식비").build());
-            categoryRepository.save(Category.builder().member(박채윤).name("쇼핑").build());
-            categoryRepository.save(Category.builder().member(박채윤).name("문화").build());
-            categoryRepository.save(Category.builder().member(박채윤).name("취미/여가").build());
-            categoryRepository.save(Category.builder().member(박채윤).name("교통").build());
-            categoryRepository.save(Category.builder().member(박채윤).name("그 외").build());
+            categoryRepository.save(Category.builder().member(박채윤).name("식비").color("#FF5757").build());
+            categoryRepository.save(Category.builder().member(박채윤).name("쇼핑").color("#467AFF").build());
+            categoryRepository.save(Category.builder().member(박채윤).name("취미/여가").color("#FFD542").build());
+            categoryRepository.save(Category.builder().member(박채윤).name("교통").color("42D93F").build());
+            categoryRepository.save(Category.builder().member(박채윤).name("그 외").color("#8E8565").build());
         }
     }
 }

@@ -9,5 +9,6 @@ import lombok.ToString;
 @Data
 public class TotalPriceByCategoryResponse {
     private String categoryName;
+    private String color;
     private int totalPrice;
 }

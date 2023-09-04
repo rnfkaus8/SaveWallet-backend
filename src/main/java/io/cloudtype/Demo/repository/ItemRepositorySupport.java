@@ -23,12 +23,13 @@ public class ItemRepositorySupport extends QuerydslRepositorySupport {
 
     public List<Tuple> getCategoryTotalCount(FindItemsRequest request) {
         return queryFactory
-                .select(category.name, item.price.sum())
+                .select(category.name, category.color, item.price.sum())
                 .from(item)
                 .join(item.category, category)
                 .where(item.boughtDate.between(request.getStartDate(), request.getEndDate()))
                 .where(item.member.id.eq(request.getMemberId()))
                 .groupBy(item.category.name)
+                .groupBy(item.category.color)
                 .fetch();
     }
 }
