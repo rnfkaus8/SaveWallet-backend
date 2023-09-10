@@ -41,7 +41,7 @@ public class InitMemberDb {
             categoryRepository.save(Category.builder().member(박채윤).name("식비").color("#FF5757").build());
             categoryRepository.save(Category.builder().member(박채윤).name("쇼핑").color("#467AFF").build());
             categoryRepository.save(Category.builder().member(박채윤).name("취미/여가").color("#FFD542").build());
-            categoryRepository.save(Category.builder().member(박채윤).name("교통").color("42D93F").build());
+            categoryRepository.save(Category.builder().member(박채윤).name("교통").color("#42D93F").build());
             categoryRepository.save(Category.builder().member(박채윤).name("그 외").color("#8E8565").build());
         }
     }
