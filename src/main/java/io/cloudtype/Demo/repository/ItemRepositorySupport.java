@@ -30,6 +30,7 @@ public class ItemRepositorySupport extends QuerydslRepositorySupport {
                 .where(item.member.id.eq(request.getMemberId()))
                 .groupBy(item.category.name)
                 .groupBy(item.category.color)
+                .orderBy(item.price.sum().desc())
                 .fetch();
     }
 }
