@@ -20,9 +20,10 @@ public class CategoryRestController {
     private final MemberRepository memberRepository;
 
     @PostMapping("/category")
-    public Category save(@RequestBody SaveCategoryRequest request) {
+    public CategoryResponse save(@RequestBody SaveCategoryRequest request) {
         Member member = memberRepository.findById(request.getMemberId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
-        return categoryRepository.save(Category.builder().name(request.getName()).color(request.getColor()).member(member).build());
+        Category savedCategory = categoryRepository.save(Category.builder().name(request.getName()).color(request.getColor()).member(member).build());
+        return new CategoryResponse(savedCategory.getId(), savedCategory.getName(), savedCategory.getColor());
     }
 
     @GetMapping("/categories/{id}")
@@ -33,15 +34,16 @@ public class CategoryRestController {
     }
 
     @GetMapping("/category/{id}")
-    public Category findById(@PathVariable Long id) {
-        return categoryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 카테고리입니다."));
+    public CategoryResponse findById(@PathVariable Long id) {
+        Category savedCategory = categoryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 카테고리입니다."));
+        return new CategoryResponse(savedCategory.getId(), savedCategory.getName(), savedCategory.getColor());
     }
 
     @PatchMapping("/category")
-    public Category update(@RequestBody UpdateCategoryRequest request) {
+    public CategoryResponse update(@RequestBody UpdateCategoryRequest request) {
         Category category = categoryRepository.findById(request.getCategoryId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 카테고리입니다."));
         category.changeName(request.getName());
-        return category;
+        return new CategoryResponse(category.getId(), category.getName(), category.getColor());
     }
 
     @DeleteMapping("/category/{id}")
