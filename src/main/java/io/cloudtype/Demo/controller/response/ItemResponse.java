@@ -19,4 +19,6 @@ public class ItemResponse {
 
     private LocalDateTime boughtDate;
 
+    private Long categoryId;
+
 }

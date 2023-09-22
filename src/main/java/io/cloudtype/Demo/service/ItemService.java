@@ -54,7 +54,7 @@ public class ItemService {
 
     public List<ItemResponse> findItems(FindItemsRequest request) {
         return itemRepository.findItems(request.getStartDate(), request.getEndDate(), request.getMemberId()).stream().map((item) -> {
-            return new ItemResponse(item.getId(), item.getName(), item.getPrice(), item.getBoughtDate());}).collect(Collectors.toList());
+            return new ItemResponse(item.getId(), item.getName(), item.getPrice(), item.getBoughtDate(), item.getCategory().getId());}).collect(Collectors.toList());
     }
 
     public List<TotalPriceByCategoryResponse> findTotalPriceByCategory(FindItemsRequest request) {
