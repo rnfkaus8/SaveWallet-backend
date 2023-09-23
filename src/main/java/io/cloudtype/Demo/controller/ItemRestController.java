@@ -11,6 +11,7 @@ import io.cloudtype.Demo.repository.MemberRepository;
 import io.cloudtype.Demo.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,31 +25,31 @@ public class ItemRestController {
     private final ItemService itemService;
 
     @GetMapping("/items")
-    public List<ItemResponse> getItems(FindItemsRequest request) {
-        return itemService.findItems(request);
+    public ResponseEntity<List<ItemResponse>> getItems(FindItemsRequest request) {
+        return ResponseEntity.ok().body(itemService.findItems(request));
     }
 
     @GetMapping("/items/total-price")
-    public List<TotalPriceByCategoryResponse> getTotalPriceByCategory(FindItemsRequest request) {
-        return itemService.findTotalPriceByCategory(request);
+    public ResponseEntity<List<TotalPriceByCategoryResponse>> getTotalPriceByCategory(FindItemsRequest request) {
+        return ResponseEntity.ok().body(itemService.findTotalPriceByCategory(request));
     }
 
     @PostMapping("/item")
-    public String saveItem(@RequestBody SaveItemRequest request) {
+    public ResponseEntity<String> saveItem(@RequestBody SaveItemRequest request) {
         itemService.save(request);
-        return "success";
+        return ResponseEntity.ok().body("success");
     }
 
     @PatchMapping("/item")
-    public String updateItem(@RequestBody UpdateItemRequest request) {
+    public ResponseEntity<String> updateItem(@RequestBody UpdateItemRequest request) {
         itemService.update(request);
-        return "success";
+        return ResponseEntity.ok().body("success");
     }
 
     @DeleteMapping("/item/{id}")
-    public String delete(@PathVariable Long id) {
+    public ResponseEntity<String> delete(@PathVariable Long id) {
         itemRepository.deleteById(id);
-        return "success";
+        return ResponseEntity.ok().body("success");
     }
 
 }
