@@ -10,6 +10,7 @@ import io.cloudtype.Demo.repository.MemberRepository;
 import io.cloudtype.Demo.service.GoalService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -23,27 +24,26 @@ public class GoalRestController {
     private final GoalService goalService;
 
     @PatchMapping("/goal")
-    public String update(@RequestBody UpdateGoalRequest request) {
+    public ResponseEntity<String> update(@RequestBody UpdateGoalRequest request) {
         goalService.update(request);
-        return "success";
+        return ResponseEntity.ok().body("success");
     }
 
     @PutMapping("/goal")
-    public Goal saveNotExistGoal(@RequestBody SaveGoalRequest request) {
+    public ResponseEntity<Goal> saveNotExistGoal(@RequestBody SaveGoalRequest request) {
         Optional<Goal> optionalGoal = goalRepository.findTargetMonthGoal(request.getTargetMonth(), request.getMemberId());
         if (optionalGoal.isPresent()) {
-            return optionalGoal.get();
+            return ResponseEntity.ok().body(optionalGoal.get());
         }
 
         Member member = memberRepository.findById(request.getMemberId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
         Goal goal = Goal.builder().goalPrice(request.getGoalPrice()).member(member).targetMonth(request.getTargetMonth()).build();
-        return goalRepository.save(goal);
+        return ResponseEntity.ok().body(goalRepository.save(goal));
     }
 
     @GetMapping("/goal")
-    public Goal findByTargetMonth(FindGoalRequest request) {
-        log.info("targetMonth : {}", request.getTargetMonth());
-        log.info("memberId: {}", request.getTargetMonth());
-        return goalRepository.findTargetMonthGoal(request.getTargetMonth(), request.getMemberId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 목표입니다"));
+    public ResponseEntity<Goal> findByTargetMonth(FindGoalRequest request) {
+        Goal goal = goalRepository.findTargetMonthGoal(request.getTargetMonth(), request.getMemberId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 목표입니다"));
+        return ResponseEntity.ok().body(goal);
     }
 }
