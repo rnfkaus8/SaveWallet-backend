@@ -15,7 +15,7 @@ import javax.transaction.Transactional;
 public class InitMemberDb {
     private final InitService initService;
 
-    @PostConstruct
+//    @PostConstruct
     public void init() {
         initService.initDb();
     }
