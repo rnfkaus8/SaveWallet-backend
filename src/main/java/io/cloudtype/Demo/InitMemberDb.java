@@ -28,8 +28,8 @@ public class InitMemberDb {
         private final CategoryRepository categoryRepository;
 
         public void initDb() {
-            Member 박채윤 = Member.builder().id(1L).name("박채윤").build();
-            Member 박이영 = Member.builder().id(2L).name("박이영").build();
+            Member 박채윤 = Member.builder().id(1L).deviceId("박채윤").build();
+            Member 박이영 = Member.builder().id(2L).deviceId("박이영").build();
             memberRepository.save(박채윤);
             memberRepository.save(박이영);
             categoryRepository.save(Category.builder().member(박이영).name("식비").color("#FF5757").build());
