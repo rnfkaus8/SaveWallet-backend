@@ -19,5 +19,5 @@ public class Member extends BaseEntity {
     @Id @GeneratedValue
     private Long id;
 
-    private String name;
+    private String deviceId;
 }
