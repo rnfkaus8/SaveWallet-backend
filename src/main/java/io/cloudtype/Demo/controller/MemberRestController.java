@@ -1,5 +1,6 @@
 package io.cloudtype.Demo.controller;
 
+import io.cloudtype.Demo.controller.response.MemberResponse;
 import io.cloudtype.Demo.domain.Member;
 import io.cloudtype.Demo.repository.MemberRepository;
 import io.cloudtype.Demo.service.MemberService;
@@ -13,12 +14,13 @@ public class MemberRestController {
     private final MemberService memberService;
 
     @GetMapping("/member/{deviceId}")
-    public Member findByName(@PathVariable("deviceId") String deviceId) {
-        return memberRepository.findByDeviceId(deviceId).orElseThrow(() -> new IllegalArgumentException("아이디가 존재하지 않습니다"));
+    public MemberResponse findByName(@PathVariable("deviceId") String deviceId) {
+        Member findMember = memberRepository.findByDeviceId(deviceId).orElseThrow(() -> new IllegalArgumentException("아이디가 존재하지 않습니다"));
+        return new MemberResponse(findMember.getId(), findMember.getDeviceId());
     }
 
     @PutMapping("/member/{deviceId}")
-    public Member saveNotExist(@PathVariable("deviceId") String deviceId) {
+    public MemberResponse saveNotExist(@PathVariable("deviceId") String deviceId) {
         return memberService.saveNotExistMember(deviceId);
     }
 }

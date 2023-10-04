@@ -1,5 +1,6 @@
 package io.cloudtype.Demo.service;
 
+import io.cloudtype.Demo.controller.response.MemberResponse;
 import io.cloudtype.Demo.domain.Category;
 import io.cloudtype.Demo.domain.Member;
 import io.cloudtype.Demo.repository.CategoryRepository;
@@ -15,10 +16,11 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final CategoryRepository categoryRepository;
 
-    public Member saveNotExistMember(String deviceId) {
+    public MemberResponse saveNotExistMember(String deviceId) {
         Optional<Member> findByDeviceId = memberRepository.findByDeviceId(deviceId);
         if (findByDeviceId.isPresent()) {
-            return findByDeviceId.get();
+            Member existMember = findByDeviceId.get();
+            return new MemberResponse(existMember.getId(), existMember.getDeviceId());
         }
 
         Member member = Member.builder().deviceId(deviceId).build();
@@ -30,7 +32,7 @@ public class MemberService {
         categoryRepository.save(Category.builder().member(member).name("취미/여가").build());
         categoryRepository.save(Category.builder().member(member).name("교통").build());
         categoryRepository.save(Category.builder().member(member).name("그 외").build());
-        return member;
+        return new MemberResponse(member.getId(), member.getDeviceId());
     }
 
 }
