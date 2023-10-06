@@ -8,6 +8,7 @@ import io.cloudtype.Demo.domain.Member;
 import io.cloudtype.Demo.repository.CategoryRepository;
 import io.cloudtype.Demo.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,35 +21,35 @@ public class CategoryRestController {
     private final MemberRepository memberRepository;
 
     @PostMapping("/category")
-    public CategoryResponse save(@RequestBody SaveCategoryRequest request) {
+    public ResponseEntity<CategoryResponse> save(@RequestBody SaveCategoryRequest request) {
         Member member = memberRepository.findById(request.getMemberId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
         Category savedCategory = categoryRepository.save(Category.builder().name(request.getName()).color(request.getColor()).member(member).build());
-        return new CategoryResponse(savedCategory.getId(), savedCategory.getName(), savedCategory.getColor());
+        return ResponseEntity.ok().body(new CategoryResponse(savedCategory.getId(), savedCategory.getName(), savedCategory.getColor()));
     }
 
     @GetMapping("/categories/{id}")
-    public List<CategoryResponse> findAllByMemberId(@PathVariable Long id) {
-        return categoryRepository.findByMemberId(id).stream().map((category -> {
+    public ResponseEntity<List<CategoryResponse>> findAllByMemberId(@PathVariable Long id) {
+        return ResponseEntity.ok().body(categoryRepository.findByMemberId(id).stream().map((category -> {
             return new CategoryResponse(category.getId(), category.getName(), category.getColor());
-        })).collect(Collectors.toList());
+        })).collect(Collectors.toList()));
     }
 
     @GetMapping("/category/{id}")
-    public CategoryResponse findById(@PathVariable Long id) {
+    public ResponseEntity<CategoryResponse> findById(@PathVariable Long id) {
         Category savedCategory = categoryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 카테고리입니다."));
-        return new CategoryResponse(savedCategory.getId(), savedCategory.getName(), savedCategory.getColor());
+        return ResponseEntity.ok().body(new CategoryResponse(savedCategory.getId(), savedCategory.getName(), savedCategory.getColor()));
     }
 
     @PatchMapping("/category")
-    public CategoryResponse update(@RequestBody UpdateCategoryRequest request) {
+    public ResponseEntity<CategoryResponse> update(@RequestBody UpdateCategoryRequest request) {
         Category category = categoryRepository.findById(request.getCategoryId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 카테고리입니다."));
         category.changeName(request.getName());
-        return new CategoryResponse(category.getId(), category.getName(), category.getColor());
+        return ResponseEntity.ok().body(new CategoryResponse(category.getId(), category.getName(), category.getColor()));
     }
 
     @DeleteMapping("/category/{id}")
-    public String delete(@PathVariable Long id) {
+    public ResponseEntity<String> delete(@PathVariable Long id) {
         categoryRepository.deleteById(id);
-        return "success";
+        return ResponseEntity.ok().body("success");
     }
 }
