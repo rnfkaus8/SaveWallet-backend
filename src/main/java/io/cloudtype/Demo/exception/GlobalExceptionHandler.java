@@ -1,4 +1,4 @@
-package io.cloudtype.Demo.controller;
+package io.cloudtype.Demo.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

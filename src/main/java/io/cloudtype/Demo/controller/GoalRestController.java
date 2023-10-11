@@ -1,4 +1,4 @@
-package io.cloudtype.Demo.exception;
+package io.cloudtype.Demo.controller;
 
 import io.cloudtype.Demo.controller.request.FindGoalRequest;
 import io.cloudtype.Demo.controller.request.SaveGoalRequest;
