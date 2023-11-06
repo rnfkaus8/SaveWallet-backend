@@ -7,15 +7,18 @@ import io.cloudtype.Demo.repository.CategoryRepository;
 import io.cloudtype.Demo.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class MemberService {
     private final MemberRepository memberRepository;
     private final CategoryRepository categoryRepository;
 
+    @Transactional
     public MemberResponse saveNotExistMember(String deviceId) {
         Optional<Member> findByDeviceId = memberRepository.findByDeviceId(deviceId);
         if (findByDeviceId.isPresent()) {
